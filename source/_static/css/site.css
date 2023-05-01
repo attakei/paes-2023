@@ -1,0 +1,34 @@
+/**
+ * Override piccolo-theme style
+ */
+:root {
+  --mainNavColor: #006600;
+  --notificationBannerColor: #009900;
+}
+
+div#top_nav h1 a::before {
+  content: '';
+  background-image: url(../images/icon-attakei.jpg);
+  background-repeat: no-repeat;
+  background-size: var(--navbarHeight);
+  display: inline-block;
+  vertical-align: middle;
+  height: var(--navbarHeight);
+  width: var(--navbarHeight);
+  margin: -16px 0.5rem;
+}
+
+div.footer, a.close, p#theme_credit {
+  text-transform: none;
+}
+
+/**
+ * Custom design
+ */
+aside.footnote {
+  display: flex;
+}
+aside.footnote p {
+  display: inline;
+  margin: 0 0.5rem;
+}
