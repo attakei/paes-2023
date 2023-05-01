@@ -16,7 +16,10 @@ def rebuild_pageurl(
     """
     if not app.config.html_baseurl:
         return
-    context["pageurl"] = f"{app.config.html_baseurl}/{pagename}/"
+    if pagename == "index":
+        context["pageurl"] = f"{app.config.html_baseurl}/"
+    else:
+        context["pageurl"] = f"{app.config.html_baseurl}/{pagename}/"
 
 
 def setup(app: Sphinx):  # noqa: D103
