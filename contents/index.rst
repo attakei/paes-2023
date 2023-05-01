@@ -1,3 +1,5 @@
+:og:type: website
+
 ====
 Home
 ====

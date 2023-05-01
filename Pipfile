@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 piccolo-theme = "==0.15.*"
 sphinx = "==7.*"
+sphinxext-opengraph = "==0.8.*"
 
 [dev-packages]
 sphinx-autobuild = "== 2021.3.14"
