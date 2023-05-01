@@ -5,13 +5,13 @@
 # from the environment for the first two.
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
-SOURCEDIR     = source
+SOURCEDIR     = contents
 BUILDDIR      = build
 
 .PHONY: help Makefile local
 
 local:
-	sphinx-autobuild --re-ignore='source/_static/css/.+' -b dirhtml source build/dirhtml $(O)
+	sphinx-autobuild --re-ignore='contents/_static/css/.+' -b dirhtml contents build/dirhtml $(O)
 
 # Put it first so that "make" without argument is like "make help".
 help:
