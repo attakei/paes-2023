@@ -28,3 +28,4 @@ html_css_files = ["css/site.css"]
 ogp_site_url = html_baseurl
 ogp_description_length = 100
 ogp_type = "article"
+ogp_image = "/_static/og-images/default.png"
