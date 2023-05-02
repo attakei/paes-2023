@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "cff5a672b34af9ee6c5d5cfc014ce2b9b0a5b1cb3afd287b983ca72df42878aa"
+            "sha256": "e39ac7b9be93edb9711d6df6ab2129a286fdefe82928015fac7dc821964376af"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -31,6 +31,14 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==2.12.1"
+        },
+        "budoux": {
+            "hashes": [
+                "sha256:95ccd9aa79d9e8870b6d444da56ed2e1f3890b5cf6689e6e504289672153b23b",
+                "sha256:de94ca8a82c23ec0679aa095cb8d83c0fc5660c7012bc638de7889f8c9cb1ba1"
+            ],
+            "index": "pypi",
+            "version": "==0.5.1"
         },
         "cairocffi": {
             "hashes": [

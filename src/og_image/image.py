@@ -3,6 +3,7 @@ import tempfile
 from pathlib import Path
 from typing import Tuple
 
+import budoux
 import cairosvg
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -17,11 +18,28 @@ def init_image(base_image_path: Path) -> Tuple[Image.Image, Path]:
     return img, img_path
 
 
+def rebuild_text(text: str, font: ImageFont.FreeTypeFont, size: spec.SizeD2) -> str:
+    """Conver to wrapped text that can be in size."""
+    parsed = budoux.load_default_japanese_parser().parse(text)
+    block_width = 0
+    texts = [""]
+    for token in parsed:
+        bbox = font.getbbox(token)
+        bwidth = bbox[2] - bbox[0]
+        if block_width + bwidth > size.width:
+            texts.append("")
+            block_width = 0
+        texts[-1] += token
+        block_width += bwidth
+    return "\n".join(texts)
+
+
 def write_text(img: Image.Image, spec: spec.TextSpec) -> Image.Image:
     """Write text content for spec into target image."""
     font = ImageFont.truetype(str(spec.font_path), spec.font_size)
+    content = rebuild_text(spec.content, font, spec.size)
     draw = ImageDraw.Draw(img)
-    draw.text(spec.pos.to_tuple(), spec.content, (0, 0, 0), font)
+    draw.text(spec.pos.to_tuple(), content, (0, 0, 0), font)
     return img
 
 
