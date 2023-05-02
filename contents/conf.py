@@ -1,4 +1,8 @@
 """Configuration of Sphinx."""
+from pathlib import Path
+
+here = Path(__file__).parent
+root = here.parent
 
 # -- Project information
 project = "attakei pages"
@@ -32,4 +36,5 @@ ogp_type = "article"
 ogp_image = "/_static/og-images/default.png"
 
 # extensions.article_og_image
-x_aog_urlbase = "_static/og-images"
+x_aog_basepath = "_static/og-images"
+x_aog_image_spec = root / "resources" / "og-image_spec-article.toml"
