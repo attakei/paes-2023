@@ -8,6 +8,7 @@ release = "2023.5.1"
 
 # -- General configuration
 extensions = [
+    "extensions.article_og_image",
     "extensions.lazy_footnotes",
     "extensions.rebuild_pageurl",
     "sphinxext.opengraph",
@@ -29,3 +30,6 @@ ogp_site_url = html_baseurl
 ogp_description_length = 100
 ogp_type = "article"
 ogp_image = "/_static/og-images/default.png"
+
+# extensions.article_og_image
+x_aog_urlbase = "_static/og-images"
