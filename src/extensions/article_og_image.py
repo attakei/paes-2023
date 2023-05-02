@@ -1,6 +1,7 @@
 """Article hooks for ``og_image`` private package."""
 from copy import deepcopy
 from pathlib import Path
+from typing import List
 
 from docutils import nodes
 from PIL import Image
@@ -19,6 +20,8 @@ def append_og_image(app: Sphinx, doctree: addnodes.document):
     global _image_base, _spec
     docname = app.env.docname
     metadata = app.env.metadata[docname]
+    if docname in app.config.x_aog_excludes:
+        return
     if "og:image" not in metadata:
         image_name = docname.replace("/", "~") + f".{app.config.x_aog_format}"
         metadata["og:image"] = f"{app.config.x_aog_basepath}/{image_name}"
@@ -45,5 +48,6 @@ def setup(app: Sphinx):  # noqa: D103
     app.add_config_value("x_aog_format", "png", "env", [str])
     app.add_config_value("x_aog_basepath", "_static", "env", [str])
     app.add_config_value("x_aog_image_spec", None, "env", [Path])
+    app.add_config_value("x_aog_excludes", [], "env", [List[str]])
     app.connect("config-inited", init_shared_vals)
     app.connect("doctree-read", append_og_image)
