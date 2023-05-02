@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+click = "==8.*"
 piccolo-theme = "==0.15.*"
 sphinx = "==7.*"
 sphinxext-opengraph = "==0.8.*"
