@@ -45,6 +45,7 @@ class TextSpec(BaseModel):
     font_path: Path
     font_size: int
     pos: PositionD2
+    size: SizeD2
     content: str
 
 

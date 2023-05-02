@@ -11,5 +11,5 @@ size = { width = 120, height = 120 }
 font_path = "{work_dir}/resources/fonts/LINESeedJP_OTF_Rg.otf"
 font_size = 72
 pos = { x = 288, y = 267 }
-# size = {width=1152, height=200}
+size = { width = 1152, height = 400 }  # TODO: Dummy, but want to adjust
 content = "attakei pages"
