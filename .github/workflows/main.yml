@@ -1,0 +1,40 @@
+name: Continuous Integration
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  run-pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          architecture: x64
+          python-version: '3.10'
+      - name: Lint by pre-commit
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          architecture: x64
+          python-version: '3.10'
+          cache: 'pipenv'
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install
+      - name: Run checks
+        run: |
+          cp .env.example .env
+          pipenv run make linkcheck
+          pipenv run make dirhtml
