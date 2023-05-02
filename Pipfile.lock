@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b8ea682609c115f851fc76cb570b9e543af4d4fa30488499f2235ace395fa3bf"
+            "sha256": "18f9fe8b32243ae0d594a7d6ed941edeb5d8a390c35ba0d99e7df1502aa85cf4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -654,11 +654,11 @@
         },
         "pyparsing": {
             "hashes": [
-                "sha256:2b020ecf7d21b687f219b71ecad3631f644a47f01403fa1d1036b0c6416d70fb",
-                "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"
+                "sha256:bc6926958617caafb8d3e07180f53aef29bd43ce913952c0991c4793b673b07c",
+                "sha256:bf0d2844c75e9510119142cfc4aba20c0043121a736010f47f2500a7fb2134c0"
             ],
             "markers": "python_full_version >= '3.6.8'",
-            "version": "==3.0.9"
+            "version": "==3.1.0b1"
         },
         "python-dateutil": {
             "hashes": [
@@ -900,6 +900,10 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==0.19"
+        },
+        "docutils-ast-writer": {
+            "git": "https://github.com/shiguredo/docutils-ast-writer",
+            "ref": "6c93fee44f04eaed6012d13c1593012aecce3941"
         },
         "idna": {
             "hashes": [

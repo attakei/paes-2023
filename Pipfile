@@ -12,6 +12,7 @@ sphinx = "==7.*"
 sphinxext-opengraph = "==0.8.*"
 
 [dev-packages]
+docutils-ast-writer = {ref = "shiguredo", git = "https://github.com/shiguredo/docutils-ast-writer"}
 sphinx-autobuild = "== 2021.3.14"
 
 [requires]

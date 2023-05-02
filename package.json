@@ -1,0 +1,23 @@
+{
+  "private": true,
+  "scripts": {
+    "lint:contents": "textlint contents/",
+    "textlint": "textlint"
+  },
+  "dependencies": {
+    "textlint": "^13.3.2",
+    "textlint-plugin-rst": "github:attakei-sandbox/textlint-plugin-rst#for-literal",
+    "textlint-rule-preset-japanese": "^7.0.0"
+  },
+  "textlint": {
+    "plugins": [
+      "rst"
+    ],
+    "rules": {
+      "preset-japanese": true
+    }
+  },
+  "volta": {
+    "node": "18.16.0"
+  }
+}
