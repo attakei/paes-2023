@@ -4,6 +4,8 @@ from pathlib import Path
 
 import click
 
+from . import image, spec
+
 logger = logging.getLogger(__name__)
 
 
@@ -26,6 +28,10 @@ def main(src: Path, out: Path, debug: bool = False):
     logger.debug("Start")
     work_dir = Path.cwd()
     logger.debug(f"Working-directory is {work_dir}")
+    spec_ = spec.load_toml(src, work_dir=work_dir)
+    img, _ = image.init_image(spec_.base.path)
+
+    img.save(out)
     logger.debug("End")
 
 
