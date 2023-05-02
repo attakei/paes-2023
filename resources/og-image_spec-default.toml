@@ -1,0 +1,15 @@
+[base]
+path = "{work_dir}/resources/og-image_base.svg"
+size = { width = 1280, height = 670 }
+
+[icon]
+path = "{work_dir}/contents/_static/images/icon-attakei.jpg"
+pos = { x = 128, y = 267 }
+size = { width = 120, height = 120 }
+
+[[texts]]
+font_path = "{work_dir}/resources/fonts/LINESeedJP_OTF_Rg.otf"
+font_size = 72
+pos = { x = 288, y = 267 }
+# size = {width=1152, height=200}
+content = "attakei pages"
