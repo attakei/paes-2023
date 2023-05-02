@@ -30,6 +30,7 @@ def main(src: Path, out: Path, debug: bool = False):
     logger.debug(f"Working-directory is {work_dir}")
     spec_ = spec.load_toml(src, work_dir=work_dir)
     img, _ = image.init_image(spec_.base.path)
+    image.paste_rounted_image(img, spec_.icon)
     for text_spec in spec_.texts:
         image.write_text(img, text_spec)
     img.save(out)
