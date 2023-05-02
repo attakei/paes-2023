@@ -38,3 +38,19 @@ jobs:
           cp .env.example .env
           pipenv run make linkcheck
           pipenv run make dirhtml
+  textlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          architecture: x64
+          node-version: '>=18.12'
+      - name: Install dependencies
+        run: |
+          pip install git+https://github.com/shiguredo/docutils-ast-writer
+          npm install
+      - name: Run check
+        run: |
+          npm run lint:contents
