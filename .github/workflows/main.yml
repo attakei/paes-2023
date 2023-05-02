@@ -19,7 +19,7 @@ jobs:
         run: |
           pip install pre-commit
           pre-commit run --all-files
-  build:
+  linkcheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -37,7 +37,6 @@ jobs:
         run: |
           cp .env.example .env
           pipenv run make linkcheck
-          pipenv run make dirhtml
   textlint:
     runs-on: ubuntu-latest
     steps:
