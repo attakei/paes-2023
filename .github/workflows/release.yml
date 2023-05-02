@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          architecture: x64
+          python-version: '3.10'
+          cache: 'pipenv'
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install
+      - name: Run build
+        run: |
+          cp .env.example .env
+          pipenv run python -m tasks.get_font resources/fonts
+          pipenv run python -m og_image resources/og-image_spec-default.toml contents/_static/og-images/default.png
+          pipenv run make dirhtml
+      - run: ls -lR build/dirhtml
