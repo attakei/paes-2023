@@ -8,8 +8,10 @@ cairosvg = "==2.*"
 click = "==8.*"
 piccolo-theme = "==0.15.*"
 pillow = "==9.*"
+pydantic = "==1.*"
 sphinx = "==7.*"
 sphinxext-opengraph = "==0.8.*"
+tomli = "==2.*"
 
 [dev-packages]
 docutils-ast-writer = {ref = "shiguredo", git = "https://github.com/shiguredo/docutils-ast-writer"}
