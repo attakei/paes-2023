@@ -21,3 +21,11 @@ repos:
     rev: 6.1.1
     hooks:
       - id: pydocstyle
+  - repo: local
+    hooks:
+      - id: textlint
+        name: textlint
+        entry: pipenv run npm run textlint
+        language: system
+        types:
+          - rst

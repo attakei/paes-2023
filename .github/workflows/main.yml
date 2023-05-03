@@ -18,7 +18,10 @@ jobs:
       - name: Lint by pre-commit
         run: |
           pip install pre-commit
-          pre-commit run --all-files
+          for t in $(grep id: .pre-commit-config.yaml|awk '{print $3}'|sed '$ d')
+          do
+            pre-commit run --all-files $t
+          done
   linkcheck:
     runs-on: ubuntu-latest
     steps:
