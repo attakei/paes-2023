@@ -11,7 +11,6 @@ from sphinx.application import Sphinx
 from og_image import image, spec
 
 _image_base: Optional[Image] = None
-_image_targets = {}
 _spec: Optional[spec.TextSpec] = None
 
 
@@ -20,6 +19,8 @@ def init_shared_values(app: Sphinx):
 
     It works when inited builder is only html-like.
     """
+    if not hasattr(app.env, "og_image_targets"):
+        app.env.og_image_targets = {}
     if app.builder.format != "html":
         return
     global _image_base, _spec
@@ -32,7 +33,6 @@ def init_shared_values(app: Sphinx):
 
 def catch_og_image_target(app: Sphinx, doctree: addnodes.document):
     """Append og_image directive if not exists."""
-    global _image_targets
     docname = app.env.docname
     metadata = app.env.metadata[docname]
     if docname in app.config.x_aog_excludes:
@@ -42,7 +42,7 @@ def catch_og_image_target(app: Sphinx, doctree: addnodes.document):
         metadata["og:image"] = f"{app.config.x_aog_basepath}/{image_name}"
         out = f"{app.srcdir}/{app.config.x_aog_basepath}/{image_name}"
         text = list(doctree.traverse(nodes.title))[0].astext()
-        _image_targets[docname] = (text, out)
+        app.env.og_image_targets[docname] = (text, out)
 
 
 def write_og_image(
@@ -55,12 +55,12 @@ def write_og_image(
     """Write og-image included page title."""
     if not doctree:
         return
-    global _image_base, _image_targets, _spec
+    global _image_base, _spec
     if not _image_base or not _spec:
         return
     if pagename in app.config.x_aog_excludes:
         return
-    text, out = _image_targets[pagename]
+    text, out = app.env.og_image_targets[pagename]
     img = _image_base.copy()
     text_spec = deepcopy(_spec)
     text_spec.content = text
