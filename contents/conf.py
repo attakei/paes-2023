@@ -13,6 +13,7 @@ release = "2023.5.1"
 # -- General configuration
 extensions = [
     "extensions.article_og_image",
+    "extensions.contents_feed",
     "extensions.lazy_footnotes",
     "extensions.rebuild_pageurl",
     "oembedpy.ext.sphinx",
@@ -45,3 +46,7 @@ ogp_image = "/_static/og-images/default.png"
 x_aoi_basepath = "_static/og-images"
 x_aoi_image_spec = root / "resources" / "og-image_spec-article.toml"
 x_aoi_excludes = ["index", "404"]
+
+# extensions.contents_feed
+x_cf_filename = "atom.xml"
+x_cf_timezone = "Asia/Tokyo"
