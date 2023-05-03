@@ -42,6 +42,6 @@ ogp_type = "article"
 ogp_image = "/_static/og-images/default.png"
 
 # extensions.article_og_image
-x_aog_basepath = "_static/og-images"
-x_aog_image_spec = root / "resources" / "og-image_spec-article.toml"
-x_aog_excludes = ["index", "404"]
+x_aoi_basepath = "_static/og-images"
+x_aoi_image_spec = root / "resources" / "og-image_spec-article.toml"
+x_aoi_excludes = ["index", "404"]

@@ -24,7 +24,7 @@ def init_shared_values(app: Sphinx):
     if app.builder.format != "html":
         return
     global _image_base, _spec
-    spec_ = spec.load_toml(Path(app.config.x_aog_image_spec), work_dir=Path.cwd())
+    spec_ = spec.load_toml(Path(app.config.x_aoi_image_spec), work_dir=Path.cwd())
     _image_base, _ = image.init_image(spec_.base.path)
     image.paste_rounted_image(_image_base, spec_.icon)
     image.write_text(_image_base, spec_.texts[0])
@@ -35,12 +35,12 @@ def catch_og_image_target(app: Sphinx, doctree: addnodes.document):
     """Append og_image directive if not exists."""
     docname = app.env.docname
     metadata = app.env.metadata[docname]
-    if docname in app.config.x_aog_excludes:
+    if docname in app.config.x_aoi_excludes:
         return
     if "og:image" not in metadata:
-        image_name = docname.replace("/", "~") + f".{app.config.x_aog_format}"
-        metadata["og:image"] = f"{app.config.x_aog_basepath}/{image_name}"
-        out = f"{app.srcdir}/{app.config.x_aog_basepath}/{image_name}"
+        image_name = docname.replace("/", "~") + f".{app.config.x_aoi_format}"
+        metadata["og:image"] = f"{app.config.x_aoi_basepath}/{image_name}"
+        out = f"{app.srcdir}/{app.config.x_aoi_basepath}/{image_name}"
         text = list(doctree.traverse(nodes.title))[0].astext()
         app.env.og_image_targets[docname] = (text, out)
 
@@ -58,7 +58,7 @@ def write_og_image(
     global _image_base, _spec
     if not _image_base or not _spec:
         return
-    if pagename in app.config.x_aog_excludes:
+    if pagename in app.config.x_aoi_excludes:
         return
     text, out = app.env.og_image_targets[pagename]
     img = _image_base.copy()
@@ -69,10 +69,10 @@ def write_og_image(
 
 
 def setup(app: Sphinx):  # noqa: D103
-    app.add_config_value("x_aog_format", "png", "env", [str])
-    app.add_config_value("x_aog_basepath", "_static", "env", [str])
-    app.add_config_value("x_aog_image_spec", None, "env", [Path])
-    app.add_config_value("x_aog_excludes", [], "env", [List[str]])
+    app.add_config_value("x_aoi_format", "png", "env", [str])
+    app.add_config_value("x_aoi_basepath", "_static", "env", [str])
+    app.add_config_value("x_aoi_image_spec", None, "env", [Path])
+    app.add_config_value("x_aoi_excludes", [], "env", [List[str]])
     app.connect("builder-inited", init_shared_values)
     app.connect("doctree-read", catch_og_image_target)
     app.connect("html-page-context", write_og_image)
