@@ -1,17 +1,43 @@
 """Article hooks for ``og_image`` private package."""
 from copy import deepcopy
+from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from docutils import nodes
 from PIL.Image import Image
 from sphinx import addnodes
 from sphinx.application import Sphinx
+from sphinx.environment import BuildEnvironment
+from sphinx.util import logging
 
 from og_image import image, spec
 
+logger = logging.getLogger(__name__)
+
 _image_base: Optional[Image] = None
 _spec: Optional[spec.TextSpec] = None
+
+ENV_KEY = f"{__name__}__image_targets"
+
+
+@dataclass
+class OGImageTarget:
+    """Stat of og-image."""
+
+    text: str
+    path: str
+
+
+def get_ext_env(env: BuildEnvironment) -> Dict[str, OGImageTarget]:
+    """Find or create env property in app environment."""
+    if not hasattr(env, "atsphinx"):
+        logger.debug("Init env for extensions")
+        env.atsphinx: Dict[str, Any] = {}
+    if ENV_KEY not in env.atsphinx:
+        logger.debug(f"Init env for {__name__}")
+        env.atsphinx[ENV_KEY] = {}
+    return env.atsphinx[ENV_KEY]
 
 
 def init_shared_values(app: Sphinx):
@@ -19,8 +45,7 @@ def init_shared_values(app: Sphinx):
 
     It works when inited builder is only html-like.
     """
-    if not hasattr(app.env, "og_image_targets"):
-        app.env.og_image_targets = {}
+    get_ext_env(app.env)
     if app.builder.format != "html":
         return
     global _image_base, _spec
@@ -42,7 +67,8 @@ def catch_og_image_target(app: Sphinx, doctree: addnodes.document):
         metadata["og:image"] = f"{app.config.x_aoi_basepath}/{image_name}"
         out = f"{app.srcdir}/{app.config.x_aoi_basepath}/{image_name}"
         text = list(doctree.traverse(nodes.title))[0].astext()
-        app.env.og_image_targets[docname] = (text, out)
+        get_ext_env(app.env)[docname] = OGImageTarget(text=text, path=out)
+        logger.debug(f"Add image for '{docname}'")
 
 
 def write_og_image(
@@ -60,12 +86,15 @@ def write_og_image(
         return
     if pagename in app.config.x_aoi_excludes:
         return
-    text, out = app.env.og_image_targets[pagename]
+    target = get_ext_env(app.env).get(pagename)
+    if target is None:
+        return
+    logger.debug(f"Generate image for '{pagename}'")
     img = _image_base.copy()
     text_spec = deepcopy(_spec)
-    text_spec.content = text
+    text_spec.content = target.text
     image.write_text(img, text_spec)
-    img.save(out)
+    img.save(target.path)
 
 
 def setup(app: Sphinx):  # noqa: D103
