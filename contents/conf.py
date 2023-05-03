@@ -29,6 +29,11 @@ html_baseurl = "https://attakei.net"  # Not need to change by environment
 html_static_path = ["_static"]
 html_css_files = ["css/site.css"]
 
+# -- Options for Linkcheck builder
+linkcheck_allowed_redirects = {
+    r"https://sphinx-revealjs\.readthedocs\.io/.*": r"https://sphinx-revealjs\.readthedocs\.io/en/stable/.*",  # noqa: E501
+}
+
 # -- Options for extensions
 # sphinxext-opengraph
 ogp_site_url = html_baseurl
