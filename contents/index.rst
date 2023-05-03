@@ -16,4 +16,5 @@ Home
     :maxdepth: 1
 
     about
+    works
     terms

@@ -1,0 +1,29 @@
+:article:published_time: 2022-04-19
+:article:modified_time: 2022-12-26
+
+===========================
+July Tech Festa 2021 winter
+===========================
+
+イベント情報
+============
+
+:date: 2021-01-24
+
+スライド
+========
+
+.. container:: has-text-centered
+
+    .. oembed:: https://speakerdeck.com/attakei/you-can-presentation-too-by-sphinx
+
+HTML版
+------
+
+https://slides.attakei.net/jtf-2021w/
+
+ソース類
+========
+
+* `単体GitLabリポジトリ <https://gitlab.com/attakei.net/slides/jtf-2021w>`_
+* `統合GitHubリポジトリ <https://github.com/attakei/slides>`_

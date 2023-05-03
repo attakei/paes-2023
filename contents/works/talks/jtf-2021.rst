@@ -1,0 +1,29 @@
+:article:published_time: 2022-04-19
+:article:modified_time: 2022-12-26
+
+====================
+July Tech Festa 2021
+====================
+
+イベント情報
+============
+
+:date: 2021-07-18
+
+スライド
+========
+
+.. container:: has-text-centered
+
+    .. oembed:: https://speakerdeck.com/attakei/lets-develop-plugins
+
+HTML版
+------
+
+https://slides.attakei.net/jtf-2021/
+
+ソース類
+========
+
+* `単体GitLabリポジトリ <https://gitlab.com/attakei.net/slides/jtf-2021>`_
+* `統合GitHubリポジトリ <https://github.com/attakei/slides>`_

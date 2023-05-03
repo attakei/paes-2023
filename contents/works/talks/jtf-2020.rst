@@ -1,0 +1,29 @@
+:article:published_time: 2022-04-19
+:article:modified_time: 2022-12-26
+
+====================
+July Tech Festa 2020
+====================
+
+イベント情報
+============
+
+:date: 202020-07-25
+
+スライド
+========
+
+.. container:: has-text-centered
+
+    .. oembed:: https://speakerdeck.com/attakei/using-cloud-run-and-firebase-as-preview-environment-of-html-in-web-development
+
+HTML版
+------
+
+https://slides.attakei.net/jtf-2020/
+
+ソース類
+========
+
+* `単体GitLabリポジトリ <https://gitlab.com/attakei.net/slides/jtf-2020>`_
+* `統合GitHubリポジトリ <https://github.com/attakei/slides>`_
