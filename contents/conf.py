@@ -1,4 +1,5 @@
 """Configuration of Sphinx."""
+import os
 from pathlib import Path
 
 here = Path(__file__).parent
@@ -40,6 +41,13 @@ ogp_site_url = html_baseurl
 ogp_description_length = 100
 ogp_type = "article"
 ogp_image = "/_static/og-images/default.png"
+
+# sphinxcontrib-gtagjs (for environment)
+if "SITE_GTAGJS_IDS" in os.environ:
+    extensions += [
+        "sphinxcontrib.gtagjs",
+    ]
+    gtagjs_ids = os.environ["SITE_GTAGJS_IDS"].split(",")
 
 # extensions.article_og_image
 x_aoi_basepath = "_static/og-images"

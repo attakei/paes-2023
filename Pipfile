@@ -12,6 +12,7 @@ piccolo-theme = "==0.15.*"
 pillow = "==9.*"
 pydantic = "==1.*"
 sphinx = "==7.*"
+sphinxcontrib-gtagjs = "==0.2.*"
 sphinxext-opengraph = "==0.8.*"
 tomli = "==2.*"
 
