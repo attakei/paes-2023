@@ -15,6 +15,7 @@ extensions = [
     "extensions.article_og_image",
     "extensions.lazy_footnotes",
     "extensions.rebuild_pageurl",
+    "oembedpy.ext.sphinx",
     "sphinxext.opengraph",
 ]
 templates_path = ["_templates"]
