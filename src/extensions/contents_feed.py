@@ -18,18 +18,47 @@ Dependencies
 ------------
 
 * feedgen
+* python-dateutil
 """
 
 __version__ = "0.0.1"
 
+from datetime import datetime
+from typing import Optional
+
+from dateutil.parser import parse
+from dateutil.tz import tz
 from docutils import nodes
 from feedgen.feed import FeedGenerator
 from sphinx.addnodes import document
 from sphinx.application import Sphinx
 
 
-class feed_entry(nodes.Element):
+class feed_entry(nodes.General, nodes.Element):
     """Simple node to store information of feed entry."""
+
+
+def skip_node(self, node: nodes.Element):  # noqa: D103
+    raise nodes.SkipNode
+
+
+def calc_updated(
+    published: Optional[str] = None,
+    modified: Optional[str] = None,
+    tzinfo: Optional[str] = None,
+) -> datetime:
+    """Detect 'updated' date."""
+    source = None
+    if published:
+        source = published
+    if modified:
+        source = modified
+    if source is None:
+        raise ValueError("Time information is not exists.")
+    dt = parse(source)
+    if dt.tzinfo is None and tzinfo is not None:
+        dt = dt.astimezone(tz.gettz(tzinfo))
+    return dt
 
 
 def process_entry(app: Sphinx, doctree: document):
@@ -41,8 +70,13 @@ def process_entry(app: Sphinx, doctree: document):
     # Check that doctree is target of feed
     if published_time is None and modified_time is None:
         return
-    # TODO: Implement to pick elements of enetry
     entry_node = feed_entry()
+    entry_node["title"] = list(doctree.findall(nodes.title))[0].astext()
+    entry_node["updated"] = calc_updated(
+        published_time, modified_time, app.config.x_cf_timezone
+    )
+    entry_node["summary"] = list(doctree.findall(nodes.paragraph))[0].astext()
+    entry_node["content"] = ""
     doctree.children.append(entry_node)
 
 
@@ -55,11 +89,16 @@ def generate_feed(app: Sphinx, exc: Exception):
     fg.id(app.config.html_baseurl)
     fg.title(app.config.html_title)
     fg.language(app.config.language)
+    for docname in app.env.all_docs:
+        doctree = app.env.get_doctree(docname)
+        for entry in doctree.findall(feed_entry):
+            fe = fg.add_entry()
+            fe.id(f"{app.config.html_baseurl}.{app.builder.get_target_uri(docname)}")
+            fe.title(entry["title"])
+            fe.content(entry["content"])
+            fe.updated(entry["updated"])
+            fe.summary(entry["summary"])
     fg.atom_file(f"{app.outdir}/{app.config.x_cf_filename}")
-
-
-def skip_node(self, node: nodes.Element):  # noqa: D103
-    raise nodes.SkipNode
 
 
 def setup(app: Sphinx):  # noqa: D103
