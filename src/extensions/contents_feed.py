@@ -25,12 +25,13 @@ __version__ = "0.0.1"
 
 from datetime import datetime
 from typing import Optional
+from xml.etree import ElementTree as ET
 
 from dateutil.parser import parse
 from dateutil.tz import tz
 from docutils import nodes
 from feedgen.feed import FeedGenerator
-from sphinx.addnodes import document
+from sphinx import addnodes
 from sphinx.application import Sphinx
 
 
@@ -61,7 +62,7 @@ def calc_updated(
     return dt
 
 
-def process_entry(app: Sphinx, doctree: document):
+def process_entry(app: Sphinx, doctree: addnodes.document):
     """Proccess doc to create and save feed entry information."""
     # Find key metadata
     metadata = app.env.metadata[app.env.docname]
@@ -78,6 +79,28 @@ def process_entry(app: Sphinx, doctree: document):
     entry_node["summary"] = list(doctree.findall(nodes.paragraph))[0].astext()
     entry_node["content"] = ""
     doctree.children.append(entry_node)
+
+
+def append_feed_link(
+    app: Sphinx,
+    pagename: str,
+    templatename: str,
+    context: dict,
+    doctree: addnodes.document,
+):
+    """Add link tag into page metatags."""
+    if "metatags" not in context:
+        context["metatags"] = ""
+    link = ET.Element(
+        "link",
+        attrib={
+            "rel": "alternate",
+            "type": "application/atom+xml",
+            "href": f"{app.config.html_baseurl}/{app.config.x_cf_filename}",
+            "title": f"Articles of {app.config.project}",
+        },
+    )
+    context["metatags"] += ET.tostring(link).decode()
 
 
 def generate_feed(app: Sphinx, exc: Exception):
@@ -115,6 +138,7 @@ def setup(app: Sphinx):  # noqa: D103
         texinfo=(skip_node, None),
     )
     app.connect("doctree-read", process_entry)
+    app.connect("html-page-context", append_feed_link)
     app.connect("build-finished", generate_feed)
     return {
         "version": __version__,
