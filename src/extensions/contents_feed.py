@@ -72,12 +72,21 @@ def process_entry(app: Sphinx, doctree: addnodes.document):
     if published_time is None and modified_time is None:
         return
     entry_node = feed_entry()
+    entry_node["content"] = app.config.x_cf_default_content
     entry_node["title"] = list(doctree.findall(nodes.title))[0].astext()
     entry_node["updated"] = calc_updated(
         published_time, modified_time, app.config.x_cf_timezone
     )
-    entry_node["summary"] = list(doctree.findall(nodes.paragraph))[0].astext()
-    entry_node["content"] = ""
+    entry_node["summary"] = None
+    for paragraph in doctree.findall(nodes.paragraph):
+        if isinstance(paragraph.parent, nodes.section):
+            entry_node["summary"] = paragraph.astext()
+    if "og:description" in metadata:
+        entry_node["summary"] = metadata["og:description"]
+    else:
+        for meta in doctree.findall(nodes.meta):
+            if meta["name"] == "description":
+                entry_node["summary"] = meta["content"]
     doctree.children.append(entry_node)
 
 
@@ -120,7 +129,8 @@ def generate_feed(app: Sphinx, exc: Exception):
             fe.title(entry["title"])
             fe.content(entry["content"])
             fe.updated(entry["updated"])
-            fe.summary(entry["summary"])
+            if entry["summary"]:
+                fe.summary(entry["summary"])
     fg.atom_file(f"{app.outdir}/{app.config.x_cf_filename}")
 
 
@@ -128,6 +138,8 @@ def setup(app: Sphinx):  # noqa: D103
     app.add_config_value("x_cf_filename", "atom.xml", "env", [str])
     """Geneted filename by extension into outdir."""
     app.add_config_value("x_cf_timezone", "UTC", "env", [str])
+    """TZinfo text to render 'updated' into feed file."""
+    app.add_config_value("x_cf_default_content", "(Please see webpage)", "env", [str])
     """TZinfo text to render 'updated' into feed file."""
     app.add_node(
         feed_entry,
