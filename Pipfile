@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+atsphinx-footnotes = "*"
 budoux = "==0.5.*"
 cairosvg = "==2.*"
 click = "==8.*"

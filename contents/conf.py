@@ -13,8 +13,8 @@ release = "2023.5.1"
 
 # -- General configuration
 extensions = [
+    "atsphinx.footnotes",
     "extensions.article_og_image",
-    "extensions.lazy_footnotes",
     "extensions.rebuild_pageurl",
     "oembedpy.ext.sphinx",
     "sphinxext.opengraph",
