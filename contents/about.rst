@@ -15,17 +15,12 @@ About
 外部サイト
 ----------
 
-`Twitter <https://twitter.com/attakei>`_
-/
-`GitHub <https://github.com/attakei>`_
-/
-`GitLab <https://gitlab.com/attakei>`_
-/
-`Zenn <https://zenn.dev/attakei>`_
-/
-`Qiita <https://qiita.com/attakei>`_
-/
-`Speaker Deck <https://speakerdeck.com/attakei>`_
+:Twitter: https://twitter.com/attakei
+:GitHub: https://github.com/attakei
+:GitLab: https://gitlab.com/attakei
+:Zenn: https://zenn.dev/attakei
+:Qiita: https://qiita.com/attakei
+:Speaker Deck: https://speakerdeck.com/attakei
 
 資格類
 ------
@@ -51,11 +46,8 @@ About
 サイトについて
 ==============
 
-``@attakei`` 個人視点での技術・趣味に関するノート・日記や、
+``@attakei`` 個人視点での技術・趣味に関するノートや、
 個人開発しているソフトウェアの解説などをまとめています。
-また、各イベントなどで発表したHTMLスライドも併せて保存しています。
 
-その他
-======
-
-* Google Analyticsによるアクセス状況の取得を行っています
+* 注意・確認事項については :doc:`./terms` へ。
+* 発表スライド本体については、 https://slides.attakei.net/ へ。
