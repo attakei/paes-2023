@@ -11,7 +11,7 @@ BUILDDIR      = build
 .PHONY: help Makefile local
 
 local:
-	sphinx-autobuild --re-ignore='contents/_static/css/.+' -b dirhtml contents build/dirhtml $(O)
+	sphinx-autobuild --re-ignore='contens/_static/og-images/.+' --re-ignore='contents/_static/css/.+' -b dirhtml contents build/dirhtml $(O)
 
 # Put it first so that "make" without argument is like "make help".
 help:
